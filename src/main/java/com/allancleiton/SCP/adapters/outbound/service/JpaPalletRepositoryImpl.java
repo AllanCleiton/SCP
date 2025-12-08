@@ -7,6 +7,7 @@ import com.allancleiton.SCP.domain.repository.PalletRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public class JpaPalletRepositoryImpl implements PalletRepository {
 
@@ -18,7 +19,17 @@ public class JpaPalletRepositoryImpl implements PalletRepository {
 
     @Override
     public Pallet findById(Long id) {
-        return null;
+        Optional<JpaPalletEntity> pallet = jpaPalletRepository.findById(id);
+        return pallet.map(p -> new Pallet(
+                p.getId(),
+                p.getCodeNote(),
+                p.getCode(),
+                p.getChamber(),
+                p.getRoad(),
+                p.getPosition(),
+                p.getDays(),
+                p.getBoxes()
+        )).orElse(null);
     }
 
     @Override
@@ -45,16 +56,35 @@ public class JpaPalletRepositoryImpl implements PalletRepository {
 
     @Override
     public List<Pallet> findAll() {
-        return List.of();
+        return jpaPalletRepository.findAll().stream().map(p -> new Pallet(
+                p.getId(),
+                p.getCodeNote(),
+                p.getCode(),
+                p.getChamber(),
+                p.getRoad(),
+                p.getPosition(),
+                p.getDays(),
+                p.getBoxes()
+        )).toList();
     }
 
     @Override
     public List<Pallet> findAllByCode(Long code) {
-        return List.of();
+        return jpaPalletRepository.findAllByCode(code).stream().map(p -> new Pallet(
+                p.getId(),
+                p.getCodeNote(),
+                p.getCode(),
+                p.getChamber(),
+                p.getRoad(),
+                p.getPosition(),
+                p.getDays(),
+                p.getBoxes()
+        )).toList();
     }
 
     @Override
-    public Boolean delete(Long id) {
-        return null;
+    public Boolean deleteById(Long id) {
+        this.jpaPalletRepository.deleteById(id);
+        return this.jpaPalletRepository.findById(id).isEmpty();
     }
 }

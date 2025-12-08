@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProductRepository {
     Product findById(Long id);
-    Product save(Product product);
+    void save(Product product);
     List<Product> findAll();
-    void delete(Long id);
+    Boolean deleteById(Long id);
     List<Product> findAllByCode(Long code);
 
 }

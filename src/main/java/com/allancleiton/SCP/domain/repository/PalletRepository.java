@@ -9,6 +9,6 @@ public interface PalletRepository {
     void save(Pallet pallet);
     List<Pallet> findAll();
     List<Pallet> findAllByCode(Long code);
-    Boolean delete(Long id);
+    Boolean deleteById(Long id);
 
 }

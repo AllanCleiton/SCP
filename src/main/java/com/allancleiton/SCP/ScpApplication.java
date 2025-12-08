@@ -31,9 +31,6 @@ public class ScpApplication extends Application {
         excelLoadPallet.LoadPallets();
         excelLoadProduct.LoadProducts();
 
-
-
-
     }
 
     @Override
