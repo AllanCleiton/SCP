@@ -1,0 +1,67 @@
+{
+    "CARGAVENDA":[
+        {
+            "PEDIDO":88145,
+            "CLIENTE":20012,
+            "ESTADO":"MG",
+            "CIDADE":"ITAÚNA",
+            "ROTA":8213,
+            "SEQUENCIA":1,
+            "DATAPEDIDO":"02/12/2025",
+            "PRODUTOS":[
+                {
+                    "CODPRODUTO":200101,
+                    "QTDE":421.26,
+                    "DIASVENCI":"=42",
+                    "PACOTES":"NULL"
+                },
+                {
+                    "CODPRODUTO":200101,
+                    "QTDE":80.12,
+                    "DIASVENCI":"=32",
+                    "PACOTES":"NULL"
+                },
+                {
+                    "CODPRODUTO":200050,
+                    "QTDE":421.26,
+                    "DIASVENCI":"=49",
+                    "PACOTES":"NULL"
+                },
+                {
+                    "CODPRODUTO":11410,
+                    "QTDE":120,
+                    "DIASVENCI":"NULL",
+                    "PACOTES":"NULL"
+                }
+
+            ]
+
+        },
+        {
+            "PEDIDO":95240,
+            "CLIENTE":184554,
+            "ESTADO":"MG",
+            "CIDADE":"DIVINOPOLIS",
+            "ROTA":8213,
+            "SEQUENCIA":2,
+            "DATAPEDIDO":"01/12/2025",
+            "PRODUTOS":[
+                {
+                    "CODPRODUTO":11046,
+                    "QTDE":40,
+                    "DIASVENCI":"NULL",
+                    "PACOTES":8
+                },
+                {
+                    "CODPRODUTO":11092,
+                    "QTDE":32,
+                    "DIASVENCI":"NULL",
+                    "PACOTES":"NULL"
+                }
+
+            ]
+
+        }
+
+    ]
+} 

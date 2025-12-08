@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.allancleiton.SCP.adapters.inbound.controller.MainController">
+   <children>
+      <MenuBar minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Arquivo">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Separação">
+            <items>
+                  <MenuItem fx:id="menuItemWithinTheState" mnemonicParsing="false" onAction="#onMenuItemWithinTheState" text="Dentro do estado" />
+                  <MenuItem fx:id="menuItemOutOfState" mnemonicParsing="false" onAction="#onMenuItemOutOfState" text="Fora do estado" />
+                  <MenuItem mnemonicParsing="false" text="Simples" />
+                  <MenuItem mnemonicParsing="false" text="Personalizavel" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Configuração">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Categorias" />
+                  <MenuItem mnemonicParsing="false" text="Cadastro" />
+                  <MenuItem mnemonicParsing="false" text="Parametros da separação" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Utilitarios">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Gerar Codigos de Barras" />
+                  <MenuItem mnemonicParsing="false" text="Listar produtos" />
+                  <MenuItem mnemonicParsing="false" text="Produtos S/ enderço" />
+                  <MenuItem mnemonicParsing="false" text="Gerador código de barras " />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane fx:id="tabPane" layoutY="27.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+   </children>
+</AnchorPane>
