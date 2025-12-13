@@ -9,9 +9,9 @@ import java.util.List;
 public class JpaPalletEntity {
 
     @Id
-    private Long id;
-    private Long codeNote;
-    private Long code;
+    private Integer id;
+    private Integer codeNote;
+    private Integer code;
     private String chamber;
     private String road;
     private String position;
@@ -20,7 +20,7 @@ public class JpaPalletEntity {
     @OneToMany(mappedBy = "pallet", fetch = FetchType.LAZY)
     List<JpaProductEntity> products;
 
-    public JpaPalletEntity(Long id, Long codeNote, Long code, String chamber, String road, String position, Integer days, Integer boxes) {
+    public JpaPalletEntity(Integer id, Integer codeNote, Integer code, String chamber, String road, String position, Integer days, Integer boxes) {
         this.code = code;
         this.codeNote = codeNote;
         this.chamber = chamber;
@@ -33,7 +33,7 @@ public class JpaPalletEntity {
 
     public JpaPalletEntity(){}
 
-    public JpaPalletEntity(Long id){
+    public JpaPalletEntity(Integer id){
         this.id = id;
     }
 
@@ -41,15 +41,15 @@ public class JpaPalletEntity {
         this.products = list;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public Long getCodeNote() {
+    public Integer getCodeNote() {
         return codeNote;
     }
 
-    public Long getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -75,5 +75,20 @@ public class JpaPalletEntity {
 
     public List<JpaProductEntity> getProducts() {
         return products;
+    }
+
+
+    @Override
+    public String toString() {
+        return "JpaPalletEntity{" +
+                "id=" + id +
+                ", codeNote=" + codeNote +
+                ", code=" + code +
+                ", chamber='" + chamber + '\'' +
+                ", road='" + road + '\'' +
+                ", position='" + position + '\'' +
+                ", days=" + days +
+                ", boxes=" + boxes +
+                '}';
     }
 }

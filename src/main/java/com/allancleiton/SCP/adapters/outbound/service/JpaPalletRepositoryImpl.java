@@ -3,13 +3,15 @@ package com.allancleiton.SCP.adapters.outbound.service;
 import com.allancleiton.SCP.adapters.outbound.entities.JpaPalletEntity;
 import com.allancleiton.SCP.adapters.outbound.repository.JpaPalletRepository;
 import com.allancleiton.SCP.domain.entities.Pallet;
+
 import com.allancleiton.SCP.domain.repository.PalletRepository;
+
 
 
 import java.util.List;
 import java.util.Optional;
 
-public class JpaPalletRepositoryImpl implements PalletRepository {
+public class JpaPalletRepositoryImpl  implements PalletRepository {
 
     private final JpaPalletRepository jpaPalletRepository;
 
@@ -18,7 +20,7 @@ public class JpaPalletRepositoryImpl implements PalletRepository {
     }
 
     @Override
-    public Pallet findById(Long id) {
+    public Pallet findById(Integer id) {
         Optional<JpaPalletEntity> pallet = jpaPalletRepository.findById(id);
         return pallet.map(p -> new Pallet(
                 p.getId(),
@@ -69,7 +71,7 @@ public class JpaPalletRepositoryImpl implements PalletRepository {
     }
 
     @Override
-    public List<Pallet> findAllByCode(Long code) {
+    public List<Pallet> findAllByCode(Integer code) {
         return jpaPalletRepository.findAllByCode(code).stream().map(p -> new Pallet(
                 p.getId(),
                 p.getCodeNote(),
@@ -83,7 +85,7 @@ public class JpaPalletRepositoryImpl implements PalletRepository {
     }
 
     @Override
-    public Boolean deleteById(Long id) {
+    public Boolean deleteById(Integer id) {
         this.jpaPalletRepository.deleteById(id);
         return this.jpaPalletRepository.findById(id).isEmpty();
     }

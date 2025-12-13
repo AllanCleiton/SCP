@@ -1,13 +1,15 @@
 package com.allancleiton.SCP.domain.entities;
 
+import com.allancleiton.SCP.domain.usecases.Entity;
+
 import java.util.List;
 
 
-public class Pallet {
+public class Pallet implements Entity {
 
-    private Long id;
-    private Long codeNote;
-    private Long code;
+    private Integer id;
+    private final Integer codeNote;
+    private Integer code;
     private String chamber;
     private String road;
     private String position;
@@ -16,7 +18,7 @@ public class Pallet {
 
     private List<Product> products;
 
-    public Pallet(Long id, Long codeNote, Long code, String chamber, String road, String position, Integer days, Integer boxes) {
+    public Pallet(Integer id, Integer codeNote, Integer code, String chamber, String road, String position, Integer days, Integer boxes) {
         this.code = code;
         this.codeNote = codeNote;
         this.chamber = chamber;
@@ -27,7 +29,7 @@ public class Pallet {
         this.boxes = boxes;
     }
 
-    public Pallet(Long codeNote){
+    public Pallet(Integer codeNote){
         this.codeNote = codeNote;
     }
 
@@ -35,7 +37,7 @@ public class Pallet {
         this.products = products;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -63,11 +65,25 @@ public class Pallet {
         return products;
     }
 
-    public Long getCodeNote() {
+    public Integer getCodeNote() {
         return codeNote;
     }
 
-    public Long getCode() {
+    public Integer getCode() {
         return code;
+    }
+
+    @Override
+    public String toString() {
+        return "Pallet{" +
+                "id=" + id +
+                ", codeNote=" + codeNote +
+                ", code=" + code +
+                ", chamber='" + chamber + '\'' +
+                ", road='" + road + '\'' +
+                ", position='" + position + '\'' +
+                ", days=" + days +
+                ", boxes=" + boxes +
+                '}';
     }
 }

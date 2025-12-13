@@ -2,6 +2,9 @@ package com.allancleiton.SCP.adapters.outbound.service;
 
 import com.allancleiton.SCP.adapters.outbound.entities.JpaPalletEntity;
 import com.allancleiton.SCP.adapters.outbound.repository.JpaPalletRepository;
+import com.allancleiton.SCP.adapters.outbound.repository.JpaProductRepository;
+import com.allancleiton.SCP.domain.entities.Pallet;
+import com.allancleiton.SCP.domain.repository.PalletRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -21,14 +24,15 @@ import java.util.Iterator;
 public class ExcelLoadPallet {
 
 
-    private final JpaPalletRepository jpaPalletRepository;
+    private final JpaPalletRepository repository;
 
-    public ExcelLoadPallet(JpaPalletRepository jpaPalletRepository) {
-        this.jpaPalletRepository = jpaPalletRepository;
-    }
 
     // Formato da data
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    //private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    public ExcelLoadPallet(JpaPalletRepository repository) {
+        this.repository = repository;
+    }
 
     public void LoadPallets(){
         final String defaultPath = "src/main/resources/temp/pallets.xlsx";
@@ -46,44 +50,39 @@ public class ExcelLoadPallet {
 
                 try {
                     if( row.getCell(1) != null) {
-                        if(row.getCell(1).getNumericCellValue() != 0) {
+                        if(!row.getCell(1).getStringCellValue().equals("Etiqueta Palete")) {
                             try {
                                 String[] fields = {
-                                        String.valueOf(row.getCell(1).getNumericCellValue()).replace(".0", ""),
-                                        String.valueOf(row.getCell(3).getNumericCellValue()).replace(".0", ""),
+                                        row.getCell(1).getStringCellValue().replace(".", ""),
+                                        row.getCell(3).getStringCellValue().replace(".", "").replace(",00", ""),
                                         row.getCell(8).getStringCellValue().substring(0,5),
                                         row.getCell(8).getStringCellValue().substring(5,8),
                                         row.getCell(8).getStringCellValue().substring(9),
-                                        row.getCell(0).getStringCellValue(),
-                                        String.valueOf(row.getCell(6).getNumericCellValue()).replace(".0", "")
+                                        row.getCell(10).getStringCellValue().replace(",00", ""),
+                                        row.getCell(9).getStringCellValue().replace(",00", "")
 
                                 };
 
-                                int days = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(fields[5], formatter)) * (-1);
+                                //IO.println(fields[0] + " " + fields[1] +" " + fields[2] +" " + fields[3] +" " + fields[4] +" " + fields[5] +" " + fields[6] );
 
-                                jpaPalletRepository.save(new JpaPalletEntity(
-                                        Long.valueOf(fields[0]),
-                                        Long.valueOf(fields[1]),
-                                        Long.valueOf(fields[1]),
+                                repository.save( new JpaPalletEntity(
+                                        Integer.valueOf(fields[0]),
+                                        Integer.valueOf(fields[1]),
+                                        Integer.valueOf(fields[1]),
                                         fields[2],
                                         fields[3],
                                         fields[4],
-                                        days,
+                                        Integer.valueOf(fields[5]),
                                         Integer.valueOf(fields[6])
                                 ));
 
                             }catch(NullPointerException e) {
                                 System.out.println(" Erro: Ouve uma divergencia na tabela de produtos na linha: "+line);
-                                try {
-                                    Thread.sleep(3000); // Pausa de 3 segundos (3000 milissegundos)
-                                } catch (InterruptedException e2) {
-                                    System.out.println(e2.getMessage());
-                                }
-                            }
+                                                            }
                         }
                     }
-                }catch (IllegalStateException t) {
-                    System.out.println(" Não foi possivel pegar um valor numérico de uma célula de string!");
+                }catch (IllegalStateException | NumberFormatException e) {
+                    e.printStackTrace();
                 }
 
 

@@ -7,9 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+public interface JpaPalletRepository  extends JpaRepository<JpaPalletEntity, Integer>  {
 
-public interface JpaPalletRepository extends JpaRepository<JpaPalletEntity, Long> {
-
-    @Query("select p from JpaPalletEntity p where p.code = :code")
-    List<JpaPalletEntity> findAllByCode(@Param("code") Long code);
+    @Query("SELECT p from JpaPalletEntity p WHERE p.codeNote = :code")
+    List<JpaPalletEntity> findAllByCode(@Param("code") Integer code);
 }

@@ -1,20 +1,22 @@
 package com.allancleiton.SCP.domain.entities;
 
 
+import com.allancleiton.SCP.domain.usecases.Entity;
+
 import java.time.LocalDate;
 
-public class Product {
+public class Product implements Entity {
     private Long id;
-    private Long codeNote;
-    private Long code;
+    private Integer codeNote;
+    private Integer code;
     private Double netWeightBox;
     private Short packets;
     private Pallet pallet;
     private LocalDate validity;
     private LocalDate production;
-    private Integer cays;
+    private Integer days;
 
-    public Product(Long id, Long codeNote, Long code, Double netWeightBox, Short packets, Pallet pallet, LocalDate validity, LocalDate production, Integer cays) {
+    public Product(Long id, Integer codeNote, Integer code, Double netWeightBox, Short packets, Pallet pallet, LocalDate validity, LocalDate production, Integer days) {
         this.id = id;
         this.codeNote = codeNote;
         this.code = code;
@@ -23,7 +25,7 @@ public class Product {
         this.pallet = pallet;
         this.validity = validity;
         this.production = production;
-        this.cays = cays;
+        this.days = days;
     }
 
     public Product(){}
@@ -32,11 +34,11 @@ public class Product {
         return id;
     }
 
-    public Long getCodeNote() {
+    public Integer getCodeNote() {
         return codeNote;
     }
 
-    public Long getCode() {
+    public Integer getCode() {
         return code;
     }
 
@@ -61,6 +63,6 @@ public class Product {
     }
 
     public Integer getDays() {
-        return cays;
+        return days;
     }
 }

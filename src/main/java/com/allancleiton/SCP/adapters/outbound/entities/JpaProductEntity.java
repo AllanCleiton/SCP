@@ -11,8 +11,8 @@ import java.util.Optional;
 public class JpaProductEntity {
     @Id
     private Long id;
-    private Long codeNote;
-    private Long code;
+    private Integer codeNote;
+    private Integer code;
     private Double netWeightBox;
     private Short packets;
 
@@ -23,7 +23,7 @@ public class JpaProductEntity {
     private LocalDate production;
     private Integer days;
 
-    public JpaProductEntity(Long id, Long codeNote, Long code, Double netWeightBox, Short packets, JpaPalletEntity pallet, LocalDate validity, LocalDate production, Integer days) {
+    public JpaProductEntity(Long id, Integer codeNote, Integer code, Double netWeightBox, Short packets, JpaPalletEntity pallet, LocalDate validity, LocalDate production, Integer days) {
         this.id = id;
         this.codeNote = codeNote;
         this.code = code;
@@ -35,7 +35,7 @@ public class JpaProductEntity {
         this.days = days;
     }
 
-    public JpaProductEntity(Long id, Long codeNote, Long code, Double netWeightBox, Short packets, LocalDate validity, LocalDate production, Integer days) {
+    public JpaProductEntity(Long id, Integer codeNote, Integer code, Double netWeightBox, Short packets, LocalDate validity, LocalDate production, Integer days) {
         this.id = id;
         this.codeNote = codeNote;
         this.code = code;
@@ -52,11 +52,11 @@ public class JpaProductEntity {
         return id;
     }
 
-    public Long getCodeNote() {
+    public Integer getCodeNote() {
         return codeNote;
     }
 
-    public Long getCode() {
+    public Integer getCode() {
         return code;
     }
 

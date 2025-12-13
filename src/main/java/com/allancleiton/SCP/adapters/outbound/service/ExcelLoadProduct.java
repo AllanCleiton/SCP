@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 
@@ -37,6 +38,7 @@ public class ExcelLoadProduct {
         final String defaultPath = "src/main/resources/temp/products.xlsx";
 
         int line=1;
+        String pallet = null;
         try (FileInputStream file = new FileInputStream( defaultPath);
              Workbook workbook = new XSSFWorkbook(file)) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -48,50 +50,55 @@ public class ExcelLoadProduct {
                 Row row = rowIterator.next();
 
                 try {
+                    if(!row.getCell(2).getStringCellValue().equals("Etiq Prod")) {
+                        String[] fields = {
+                                row.getCell(2).getStringCellValue().replace(".", ""),
+                                row.getCell(3).getStringCellValue().replace(".", ""),
+                                row.getCell(4).getStringCellValue(),
+                                row.getCell(13).getStringCellValue().replace(",", "."),
+                                row.getCell(14).getStringCellValue(),
+                                row.getCell(7).getStringCellValue(),
+                                row.getCell(15).getStringCellValue(),
+                                row.getCell(6).getStringCellValue().replace(",00", ""),
+                                row.getCell(1).getStringCellValue().replace(".", ""),
 
-                    String[] fields = {
-                            String.valueOf((long) row.getCell(2).getNumericCellValue()).replace(".0", ""),
-                            String.valueOf(row.getCell(3).getNumericCellValue()).replace(".0", ""),
-                            String.valueOf(row.getCell(4).getNumericCellValue()).replace(".0", ""),
-                            String.valueOf(row.getCell(13).getNumericCellValue()).replace(".0", ""),
-                            String.valueOf(row.getCell(14).getNumericCellValue()).replace(".0", ""),
-                            String.valueOf(row.getCell(1).getNumericCellValue()).replace(".0", ""),
-                            row.getCell(7).getStringCellValue(),
-                            row.getCell(15).getStringCellValue(),
-                            String.valueOf(row.getCell(6).getNumericCellValue()).replace(".0", "")
+                        };
 
-                    };
 
-                   // int validate = (int) ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(fields[5], formatter)) * (-1);
-
-                    if(Long.parseLong(fields[5]) == 0){
-                        jpaProductRepository.save(new JpaProductEntity(
-                                Long.valueOf(fields[0]),
-                                Long.valueOf(fields[1]),
-                                Long.valueOf(fields[2]),
-                                Double.valueOf(fields[3]),
-                                Short.valueOf(fields[4]),
-                                LocalDate.parse(fields[6], formatter),
-                                LocalDate.parse(fields[7], formatter),
-                                Integer.parseInt(fields[8])
-                        ));
-                    }else {
-                        jpaProductRepository.save(new JpaProductEntity(
-                                Long.valueOf(fields[0]),
-                                Long.valueOf(fields[1]),
-                                Long.valueOf(fields[2]),
-                                Double.valueOf(fields[3]),
-                                Short.valueOf(fields[4]),
-                                new JpaPalletEntity(Long.parseLong(fields[5])),
-                                LocalDate.parse(fields[6], formatter),
-                                LocalDate.parse(fields[7], formatter),
-                                Integer.parseInt(fields[8])
-                        ));
+                        if (row.getCell(1).getStringCellValue().replace(".", "").isEmpty() || row.getCell(0).getStringCellValue().equals("SEM ENDEREÇO")) {
+                            pallet = fields[8];
+                            jpaProductRepository.save(new JpaProductEntity(
+                                    Long.valueOf(fields[0]),
+                                    Integer.valueOf(fields[1]),
+                                    Integer.valueOf(fields[2]),
+                                    Double.valueOf(fields[3]),
+                                    Short.valueOf(fields[4]),
+                                    LocalDate.parse(fields[5], formatter),
+                                    LocalDate.parse(fields[6], formatter),
+                                    Integer.parseInt(fields[7])
+                            ));
+                        } else {
+                            pallet = fields[8];
+                            jpaProductRepository.save(new JpaProductEntity(
+                                    Long.valueOf(fields[0]),
+                                    Integer.valueOf(fields[1]),
+                                    Integer.valueOf(fields[2]),
+                                    Double.valueOf(fields[3]),
+                                    Short.valueOf(fields[4]),
+                                    new JpaPalletEntity(Integer.parseInt(fields[8])),
+                                    LocalDate.parse(fields[5], formatter),
+                                    LocalDate.parse(fields[6], formatter),
+                                    Integer.parseInt(fields[7])
+                            ));
+                        }
                     }
 
-                }catch (IllegalStateException t ) {
-                    //t.printStackTrace();
-                    System.out.println(" Não foi possivel pegar um valor numérico de uma célula de string!");
+
+                }catch (IllegalStateException | NumberFormatException e) {
+                    e.printStackTrace();
+                }catch (DataIntegrityViolationException ex) {
+                    System.out.println("Erro de FK: pallet não existe:  " + pallet);
+
                 }
 
 
