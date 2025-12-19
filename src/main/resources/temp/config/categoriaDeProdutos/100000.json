@@ -1,0 +1,8 @@
+{
+  "id": 100000,
+  "ruleName": "CONGELADOS_IN_NATURA",
+  "days": 292,
+  "listProducts": [
+    11046,11066
+  ]
+}

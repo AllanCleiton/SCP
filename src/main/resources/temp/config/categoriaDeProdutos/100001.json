@@ -1,0 +1,8 @@
+{
+  "id": 100001,
+  "ruleName": "RESFRIADOS_SUiNO_IN_NATURA",
+  "days": 24,
+  "listProducts": [
+    11046,11066
+  ]
+}

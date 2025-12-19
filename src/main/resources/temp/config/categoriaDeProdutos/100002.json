@@ -1,0 +1,8 @@
+{
+  "id": 100002,
+  "ruleName": "RESFRIADOS_AVES_IN_NATURA",
+  "days": 9,
+  "listProducts": [
+    11209,11410,11409,11090,11089,11210,11209,11208
+  ]
+}
